@@ -79,7 +79,20 @@ int getRear()
     return queue[rear];
 }
 
-// Driver function to demonstrate the circular queue
+void display(){
+    if(isEmpty()){
+        printf("Queue is empty\n");
+        return;
+    }
+    printf("Queue elements are: ");
+    int i;
+    for(i = front; i != rear; i = (i+1)%MAX){
+        printf("%d ", queue[i]);
+    }
+    printf("%d\n", queue[i]);   
+}
+
+// dpaste.org/jbW9a
 int main()
 {
     int choice, value;

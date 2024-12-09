@@ -8,16 +8,6 @@
 int stack[MAX];
 int top = -1;
 
-
-int minTwo(int a, int b){
-    if(a>b){
-        return b;
-    }
-    else if(b>a){
-        return a;
-    }
-    
-}
 // Function to check if the stack is empty
 int isEmpty()
 {
