@@ -92,7 +92,7 @@ void display(){
     printf("%d\n", queue[i]);   
 }
 
-// dpaste.org/jbW9a
+
 int main()
 {
     int choice, value;
