@@ -15,6 +15,7 @@ void push(int value) {
     }
     top++;
     stack[top] = value;
+    printf("asdfdfsfa");
 
     // Update the minStack
     if (top == 0 || value < minStack[top - 1]) {
