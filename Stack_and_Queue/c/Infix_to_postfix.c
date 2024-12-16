@@ -7,7 +7,7 @@
 
 
 char stack[MAX];
-int top = -1; 
+int top = -1;
 
 // Function to check if the stack is empty
 int isStackEmpty()
@@ -54,6 +54,7 @@ char peek()
 }
 
 // Function to get the precedence of operators
+// github.com/manu-prakash-choudhary/sem-IV-CC
 int precedence(char op)
 {
     switch (op)
@@ -86,12 +87,8 @@ void infixToPostfix(const char *infix, char *postfix)
     {
         char ch = infix[i];
 
-        if (isspace(ch))
-        {
-            // Ignore whitespace
-            continue;
-        }
-        else if (isalnum(ch))
+
+        if (isalnum(ch))
         {
             // Operand: Append to postfix expression
             postfix[j++] = ch;

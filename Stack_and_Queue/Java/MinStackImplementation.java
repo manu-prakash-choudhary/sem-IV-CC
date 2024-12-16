@@ -21,6 +21,9 @@ class MinStack {
         if (minStack.isEmpty() || value <= minStack.peek()) {
             minStack.push(value);
         }
+        else {
+            minStack.push(minStack.peek());
+        }
     }
 
     public void pop() {
@@ -28,10 +31,9 @@ class MinStack {
             System.out.println("Underflow! Stack is empty.");
             return;
         }
-        int popped = stack.pop();
-        if (popped == minStack.peek()) {
-            minStack.pop();
-        }
+        stack.pop();
+        minStack.pop();
+        
     }
 
     public int top() {
