@@ -54,7 +54,6 @@ char peek()
 }
 
 // Function to get the precedence of operators
-// github.com/manu-prakash-choudhary/sem-IV-CC
 int precedence(char op)
 {
     switch (op)

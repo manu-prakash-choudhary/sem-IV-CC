@@ -1,51 +1,55 @@
-import java.util.Scanner;
 import java.util.Stack;
 
 public class NextGreaterElement {
 
-    public static void findNGE(int[] arr) {
-        int n = arr.length;
-        int[] nge = new int[n]; // Array to store the results
-        Stack<Integer> stack = new Stack<>(); // Stack to help with the computation
+    // Stack to be used by printNGE()
+    private static Stack<Integer> stack = new Stack<>();
 
-        // Iterate through the array from right to left
-        for (int i = n - 1; i >= 0; i--) {
-            // Remove elements from the stack that are less than or equal to arr[i]
-            while (!stack.isEmpty() && stack.peek() <= arr[i]) {
-                stack.pop();
-            }
+    // Function to print element and NGE pair for all elements of arr[]
+    public static void printNGE(int[] arr, int n) {
+        int element, current;
 
-            // If the stack is not empty, the top of the stack is the NGE
+        // Push the first element onto the stack
+        stack.push(arr[0]);
+
+        // Iterate through the rest of the elements
+        for (int i = 1; i < n; i++) {
+            current = arr[i];
+
             if (!stack.isEmpty()) {
-                nge[i] = stack.peek();
-            } else {
-                nge[i] = -1; // No NGE found
+                // Pop elements while they are smaller than the current element
+                element = stack.pop();
+
+                while (element < current) {
+                    System.out.println(element + " --> " + current);
+                    if (stack.isEmpty()) {
+                        break;
+                    }
+                    element = stack.pop();
+                }
+
+                // If the popped element is greater, push it back
+                if (element > current) {
+                    stack.push(element);
+                }
             }
 
             // Push the current element onto the stack
-            stack.push(arr[i]);
+            stack.push(current);
         }
 
-        // Print the results
-        System.out.println("Element\tNGE");
-        for (int i = 0; i < n; i++) {
-            System.out.println(arr[i] + "\t" + nge[i]);
+        // After iterating, the remaining elements in the stack do not have a current
+        // greater element
+        while (!stack.isEmpty()) {
+            element = stack.pop();
+            System.out.println(element + " --> -1");
         }
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        int[] arr = { 11, 13, 21, 3 };
+        int n = arr.length;
 
-        System.out.print("Enter the number of elements in the array: ");
-        int n = sc.nextInt();
-
-        int[] arr = new int[n];
-        System.out.println("Enter the elements of the array: ");
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
-        }
-
-        findNGE(arr);
-        sc.close();
+        printNGE(arr, n);
     }
 }
