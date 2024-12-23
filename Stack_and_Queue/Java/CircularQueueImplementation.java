@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 class CircularQueue {
     private int[] queue;
-    private int front, rear, size, capacity;
+    private int front, rear, capacity;
 
     // Constructor to initialize the circular queue
     public CircularQueue(int capacity) {
@@ -10,11 +10,12 @@ class CircularQueue {
         this.queue = new int[capacity];
         this.front = -1;
         this.rear = -1;
-        this.size = 0;
+        
     }
 
     // Function to add an element to the queue
     public void enqueue(int value) {
+        
         if (isFull()) {
             System.out.println("Queue is full! Cannot enqueue.");
             return;
@@ -23,27 +24,29 @@ class CircularQueue {
             front = 0;
         }
         rear = (rear + 1) % capacity;
-        queue[rear] = value;
-        size++;
+        queue[rear] = value;   
     }
 
     // Function to remove an element from the queue
-    public void dequeue() {
+    public int dequeue() {
         if (isEmpty()) {
             System.out.println("Queue is empty! Cannot dequeue.");
-            return;
+            return -1;
         }
-        System.out.println("Dequeued: " + queue[front]);
-        front = (front + 1) % capacity;
-        size--;
-        if (size == 0) { // Reset pointers if the queue becomes empty
+        int result = queue[front];
+        if(front == rear) {
             front = -1;
             rear = -1;
         }
+        else {
+            front = (front + 1) % capacity;
+        }
+        return result;
+        
     }
 
     // Function to get the front element of the queue
-    public int front() {
+    public int getFront() {
         if (isEmpty()) {
             System.out.println("Queue is empty! No front element.");
             return -1;
@@ -52,7 +55,7 @@ class CircularQueue {
     }
 
     // Function to get the rear element of the queue
-    public int rear() {
+    public int getRear() {
         if (isEmpty()) {
             System.out.println("Queue is empty! No rear element.");
             return -1;
@@ -67,20 +70,20 @@ class CircularQueue {
             return;
         }
         System.out.println("Queue elements:");
-        for (int i = 0; i < size; i++) {
-            System.out.print(queue[(front + i) % capacity] + " ");
+        for (int i = front; i != rear; i = (i + 1) % capacity) {
+            System.out.print(queue[i] + " ");
         }
-        System.out.println();
+        System.out.print(queue[rear]);
     }
 
     // Check if the queue is full
     private boolean isFull() {
-        return size == capacity;
+        return (rear+1)%capacity == front;
     }
 
     // Check if the queue is empty
     private boolean isEmpty() {
-        return size == 0;
+        return front == -1;
     }
 }
 
@@ -113,13 +116,13 @@ public class CircularQueueImplementation {
                     circularQueue.dequeue();
                     break;
                 case 3:
-                    int front = circularQueue.front();
+                    int front = circularQueue.getFront();
                     if (front != -1) {
                         System.out.println("Front element: " + front);
                     }
                     break;
                 case 4:
-                    int rear = circularQueue.rear();
+                    int rear = circularQueue.getRear();
                     if (rear != -1) {
                         System.out.println("Rear element: " + rear);
                     }
