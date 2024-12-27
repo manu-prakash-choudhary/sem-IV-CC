@@ -84,7 +84,7 @@ public class InfixToPostfix {
                 }
             } else if (isOperator(ch)) {
                 // Operator: Handle precedence and associativity
-                while (!isStackEmpty() && precedence(peek()) >= precedence(ch)) {
+                while (!isStackEmpty() && precedence(ch)<=precedence(peek())) {
                     postfix.append(pop());
                 }
                 push(ch);

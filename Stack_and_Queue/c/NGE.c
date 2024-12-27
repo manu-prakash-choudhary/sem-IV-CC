@@ -35,6 +35,7 @@ int pop()
     return stack[top--];
 }
 
+// https://dpaste.org/zVTPT
 /* Function to print element and NGE pair for all elements of arr[] of size n */
 void printNGE(int arr[], int n)
 {
@@ -70,7 +71,7 @@ void printNGE(int arr[], int n)
         // Push the current element onto the stack
         push(current);
     }
-// github.com/manu-prakash-choudhary/sem-IV-CC
+
     /* After iterating, the remaining elements in the stack do not have a current greater element */
     while (!isEmpty())
     {
