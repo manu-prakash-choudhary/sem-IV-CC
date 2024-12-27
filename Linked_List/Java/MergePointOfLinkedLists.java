@@ -1,3 +1,12 @@
+/*
+List 1 (ll1): 1 -> 3 -> 7 -> 10 
+                                \
+                                  -> 15 -> 20 -> 25
+                                /
+List 2 (ll2):       2 -> 6 -> 9 
+in this case, the merge point is Node with data 15
+ */
+
 class Node {
     int data;
     Node next;
@@ -12,9 +21,7 @@ class Node {
 public class MergePointOfLinkedLists {
 
     // Function to create a new node
-    public static Node createNode(int data) {
-        return new Node(data);
-    }
+    
 
     // Function to find the length of a linked list
     public static int getLength(Node head) {
@@ -70,15 +77,16 @@ public class MergePointOfLinkedLists {
 
     public static void main(String[] args) {
         // Create two linked lists with a common merge point
-        Node common = createNode(15);
-        common.next = createNode(20);
+        Node common = new Node(15);
+        common.next = new Node(20);
+        common.next.next = new Node(25);
 
-        Node list1 = createNode(3);
-        list1.next = createNode(6);
-        list1.next.next = createNode(9);
+        Node list1 = new Node(3);
+        list1.next = new Node(6);
+        list1.next.next = new Node(9);
         list1.next.next.next = common;
 
-        Node list2 = createNode(10);
+        Node list2 = new Node(10);
         list2.next = common;
 
         System.out.print("List 1: ");
