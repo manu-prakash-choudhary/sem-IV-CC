@@ -14,6 +14,7 @@
 
 
 
+
 def count_gifts(elements_included,sum_till_now, next_element_to_include,count):
     if next_element_to_include== len(arr):
         if sum_till_now == sum:
@@ -45,6 +46,3 @@ counter = 0
 for i in range(len(arr)):
     counter = max(counter,count_gifts([arr[i]],arr[i],i+1,1))
 print(counter)
-
-
-
