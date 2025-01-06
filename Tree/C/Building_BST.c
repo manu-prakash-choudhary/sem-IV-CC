@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <limits.h>
 
-
-
 // Node structure for the BST
 struct Node
 {
@@ -100,7 +98,7 @@ int height(struct Node *root)
 {
     if (root == NULL)
     {
-        return -1;
+        return 0;
     }
 
     int leftHeight = 1;
@@ -195,7 +193,136 @@ void levelOrderTraversal(struct Node *root)
 
 
 
-int main()
+
+// Boundary Traversal BST
+void printLeftBoundary(struct Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    if (root->left)
+    {
+        printf("%d ", root->data);
+        printLeftBoundary(root->left);
+    }
+    else if (root->right)
+    {
+        printf("%d ", root->data);
+        printLeftBoundary(root->right);
+    }
+}
+
+void printRightBoundary(struct Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    if (root->right)
+    {
+        printRightBoundary(root->right);
+        printf("%d ", root->data);
+    }
+    else if (root->left)
+    {
+        printRightBoundary(root->left);
+        printf("%d ", root->data);
+    }
+}
+
+void printLeaves(struct Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    printLeaves(root->left);
+
+    if (root->left == NULL && root->right == NULL)
+    {
+        printf("%d ", root->data);
+    }
+
+    printLeaves(root->right);
+}
+
+void BSTBoundaryTraversal(struct Node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    printf("\nBoundary Traversal of the BST:\n");
+    printf("%d ", root->data);
+
+    printLeftBoundary(root->left);
+    printLeaves(root->left);
+    printLeaves(root->right);
+    printRightBoundary(root->right);
+}
+
+//  Lowest Common Ancestors
+struct Node *LCA(struct Node *root, int n1, int n2)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+
+    if (root->data > n1 && root->data > n2)
+    {
+        return LCA(root->left, n1, n2);
+    }
+
+    if (root->data < n1 && root->data < n2)
+    {
+        return LCA(root->right, n1, n2);
+    }
+
+    return root;
+}
+
+// Function to check if the given trees are mirror images of each other
+int isMirror(struct Node *root1, struct Node *root2)
+{
+    if (root1 == NULL && root2 == NULL)
+    {
+        return 1;
+    }
+
+    if (root1 == NULL || root2 == NULL)
+    {
+        return 0;
+    }
+
+    return (root1->data == root2->data) && isMirror(root1->left, root2->right) && isMirror(root1->right, root2->left);
+}
+
+// Tree from left view
+void leftView(struct Node *root, int level, int *maxLevel)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    if (*maxLevel < level)
+    {
+        printf("%d ", root->data);
+        *maxLevel = level;
+    }
+
+    leftView(root->left, level + 1, maxLevel);
+    leftView(root->right, level + 1, maxLevel);
+}
+
+
+main()
 {
     struct Node *root = NULL;
     int n, value;
@@ -225,6 +352,39 @@ int main()
     {
         printf("\n\nThe given tree is not a valid BST.\n");
     }
+
+    // Boundary Traversal of the BST
+    BSTBoundaryTraversal(root);
+
+    // Lowest Common Ancestor
+    struct Node *lca = LCA(root, 10, 15);
+    printf("\n\nLowest Common Ancestor of 10 and 15: %d\n", lca->data);
+
+    // validate mirrored trees or not
+    struct Node *root1 = createNode(1);
+    root1->left = createNode(2);
+    root1->right = createNode(3);
+    root1->left->left = createNode(4);
+    root1->left->right = createNode(5);
+
+    struct Node *root2 = createNode(1);
+    root2->left = createNode(3);
+    root2->right = createNode(2);
+    root2->right->left = createNode(5);
+    root2->right->right = createNode(4);
+
+    if (isMirror(root1, root2)){
+        printf("The trees are mirror images of each other.\n");
+    }
+    else{
+        printf("The trees are not mirror images of each other.\n");
+    }
+
+    // Tree from left View
+    int maxLevel = 0;
+    printf("\nLeft View of the BST: ");
+    leftView(root, 1, &maxLevel);
+
 
     return 0;
 }
