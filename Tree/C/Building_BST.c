@@ -261,8 +261,7 @@ void BSTBoundaryTraversal(struct Node *root)
     printf("%d ", root->data);
 
     printLeftBoundary(root->left);
-    printLeaves(root->left);
-    printLeaves(root->right);
+    printLeaves(root);
     printRightBoundary(root->right);
 }
 

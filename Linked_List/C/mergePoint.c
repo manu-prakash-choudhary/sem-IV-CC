@@ -1,5 +1,16 @@
+// Write a C program to find the merge point of two linked lists. The merge point is the node at which both linked lists merge and become common. If the linked lists do not merge, return NULL.
+
+// Example
+// Input
+// List 1: 3 -> 6 -> 9
+//                    \                    
+//                     15 -> 20 -> NULL
+//                    /
+//         List 2:  10
+
 #include <stdio.h>
 #include <stdlib.h>
+
 
 // Define the structure for a node in the linked list
 struct Node
@@ -12,11 +23,6 @@ struct Node
 struct Node *createNode(int data)
 {
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    if (!newNode)
-    {
-        printf("Memory allocation failed\n");
-        exit(EXIT_FAILURE);
-    }
     newNode->data = data;
     newNode->next = NULL;
     return newNode;

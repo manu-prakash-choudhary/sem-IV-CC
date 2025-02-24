@@ -12,6 +12,10 @@ class Node {
     }
 }
 
+
+
+
+
 public class BST {
 
     // Function to create a new node
